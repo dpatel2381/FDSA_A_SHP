@@ -1,38 +1,33 @@
-#include <iostream>
-#include <string>
+#include<iostream>
+#include<string>
 using namespace std;
 
-int main() 
+int main()
 {
+    cout<<"Enter your sentence:"<<endl;
     string sentence;
-    cout<<"Enter a sentence: ";
-    getline(cin, sentence);
 
-    string longestWord="", currentWord="";
-    int maxLength = 0;
+    string longest="",word="";
+    getline(cin,sentence);
 
-    for(size_t i=0;i<=sentence.size();i++) 
+    for(int i=0;i<=sentence.length();i++)
     {
-        char c=(i<sentence.size())?sentence[i]:' ';
-        if(isalpha(c)) 
-        {
-            currentWord+=c;
-        } 
-        else 
-        {
-            if(!currentWord.empty()) 
+        if(sentence[i]==' '||sentence[i]=='\0')
+        {  
+            if(word.length()>longest.length())
             {
-                if((int)currentWord.size()>maxLength) 
-                {
-                    maxLength=currentWord.size();
-                    longestWord=currentWord;
-                }
-                currentWord.clear();
+                longest=word;
             }
+            word="";
+        }
+        else
+        {
+            word=word+sentence[i];
         }
     }
+      
 
-    cout<<"Longest word: "<<longestWord<<endl;
-    cout<<"Size: "<<maxLength<<endl;
-    return 0;
+    cout<<"Longest word in sentence is: "<<longest<<endl;
+    cout<<"The length of longest word is: "<<longest.length()<<endl;
+
 }
