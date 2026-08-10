@@ -1,0 +1,4 @@
+Practical 2
+
+problem: in both parts of the practical, when searching for the element relying only on loops, the programme would give the output of iterative for both iterative and recursive.
+|-->So i solved it by separating both operation by using search functions and then calling them in main(). 
