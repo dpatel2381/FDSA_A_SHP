@@ -7,7 +7,7 @@ int binarySearchIterative(const vector<string>& bookCodes, const string& target)
 {
     int low=0, high=bookCodes.size()-1;
 
-    while (low<=high) 
+    while(low<=high) 
     {
         int mid=(low + high)/2;
 
@@ -30,7 +30,7 @@ int binarySearchIterative(const vector<string>& bookCodes, const string& target)
 
 int binarySearchRecursive(const vector<string>& bookCodes, const string& target, int low, int high) 
 {
-    if (low>high)
+    if(low>high)
     {
         return -1;
     }
@@ -41,29 +41,27 @@ int binarySearchRecursive(const vector<string>& bookCodes, const string& target,
     {
         return mid;
     }
-    else if (bookCodes[mid] < target)
+    else if(bookCodes[mid] < target)
     {
-        return binarySearchRecursive(bookCodes, target, mid + 1, high);
+        return binarySearchRecursive(bookCodes, target, mid+1, high);
     }
-
     else
-        return binarySearchRecursive(bookCodes, target, low, mid - 1);
+    {
+        return binarySearchRecursive(bookCodes, target, low, mid-1);
+    }
 }
 
 int main() 
 {
-    vector<string> codes = {"A101", "A205", "B310", "C220", "D105", "E500"};
-    string target = "C220";
+    vector<string> codes={"A101", "A205", "B310", "C220", "D105", "E500"};
+    string target="C220";
 
-    cout << "Catalog: ";
-    for (auto &code : codes) cout << code << " ";
-    cout << "\nTarget: " << target << endl;
+    int i=binarySearchIterative(codes, target);
+    int r=binarySearchRecursive(codes, target, 0, codes.size() - 1);
 
-    int i = binarySearchIterative(codes, target);
-    int r = binarySearchRecursive(codes, target, 0, codes.size() - 1);
-
-    cout << "Iterative result: " << i << endl;
-    cout << "Recursive result: " << r << endl;
+    cout<<"Iterative result: "<<i<<endl;
+    cout<<"Recursive result: "<<r<<endl;
 
     return 0;
 }
+
