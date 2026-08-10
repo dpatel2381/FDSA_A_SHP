@@ -1,0 +1,16 @@
+Practical 1
+
+prac1(p1)-(Item Rotation Program)
+
+Problem: i kept getting incorrect rotation when i didn't use modulus. For example, rotating 12 hours with 5 items would try to access out-of-range indices.
+|-->I solved this by using h%n and (i+k)%n for safe circular indexing and proper rotation and also reducing the repeated rotations.
+
+prac1(p2)-(Book Borrow Frequency Program)
+
+Problem: to find the duplicates i used loops which made the code complex and inefficient.
+|-->So i solved this by using unordered map and frequently map for efficient O(1) counting and clear duplicate detection.
+
+prac1(p3)-(Longest Word Program)
+
+Problem: i was unable to compare each word in the sentence separately.
+|-->So for that I initialed a variable where the current word can be temporarily saved and compared and after comparison it would be initialized to null to store the value of next word avoiding errors.
