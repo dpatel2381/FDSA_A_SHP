@@ -3,91 +3,98 @@ using namespace std;
 
 struct Node 
 {
-    int data;
+    int token;
     Node* next;
-    Node(int val) : data(val), next(NULL) {}
 };
 
-void insertEnd(Node*& head, int val) 
+Node* head = NULL;
+
+void insertEnd(int token) 
 {
-    Node* newNode = new Node(val);
-    if (!head) 
-    { 
-        head = newNode; return; 
+    Node* newNode = new Node;
+    newNode->token = token;
+    newNode->next = NULL;
+
+    if (head == NULL) 
+    {
+        head = newNode;
+        return;
     }
+
     Node* temp = head;
-    while (temp->next) temp = temp->next;
+    while (temp->next != NULL)
+        temp = temp->next;
+
     temp->next = newNode;
 }
 
-void deleteByValue(Node*& head, int val) 
+void deleteToken(int token) 
 {
-    if (!head) return;
-    if (head->data == val) 
+    if (head == NULL)
+        return;
+
+    if (head->token == token) 
     {
         Node* temp = head;
         head = head->next;
         delete temp;
         return;
     }
-    Node* temp = head;
-    while (temp->next && temp->next->data != val) 
+
+    Node* current = head;
+
+    while (current->next != NULL && current->next->token != token) 
     {
-        temp = temp->next;
+        current = current->next;
     }
-    if (temp->next) 
+
+    if (current->next != NULL) 
     {
-        Node* delNode = temp->next;
-        temp->next = delNode->next;
-        delete delNode;
+        Node* temp = current->next;
+        current->next = temp->next;
+        delete temp;
     }
 }
 
-void forwardPrint(Node* head) 
+void displayForward() 
 {
     Node* temp = head;
-    while (temp) 
+
+    while (temp != NULL) 
     {
-        cout << temp->data << " ";
+        cout << temp->token << " ";
         temp = temp->next;
     }
     cout << endl;
 }
 
-void reversePrint(Node* head) 
+void displayReverse(Node* temp) 
 {
-    if (!head) return;
-    reversePrint(head->next); // recursion
-    cout << head->data << " ";
+    if (temp == NULL)
+        return;
+
+    displayReverse(temp->next);
+    cout << temp->token << " ";
 }
 
 int main() 
 {
-    Node* head = NULL;
+    insertEnd(101);
+    insertEnd(102);
+    insertEnd(103);
+    insertEnd(104);
+    insertEnd(105);
 
-    cout << "Problem 2: Deletion and Traversals\n";
+    cout << "Initial Queue (Front to Back): ";
+    displayForward();
 
-    // Initial queue
-    insertEnd(head, 117);
-    insertEnd(head, 287);
-    insertEnd(head, 399);
-    insertEnd(head, 401);
+    deleteToken(103);
 
-    cout << "Initial queue: ";
-    forwardPrint(head);
+    cout << "After Deleting Token 103: ";
+    displayForward();
 
-    // Delete patient 301
-    deleteByValue(head, 301);
-    cout << "After deleting patient 301: ";
-    forwardPrint(head);
-
-    // Forward traversal
-    cout << "Forward traversal (front to back): ";
-    forwardPrint(head);
-
-    // Reverse printing
-    cout << "Reverse printing (back to front): ";
-    reversePrint(head);
+    cout << "Queue in Reverse (Last to First): ";
+    displayReverse(head);
     cout << endl;
 
     return 0;
