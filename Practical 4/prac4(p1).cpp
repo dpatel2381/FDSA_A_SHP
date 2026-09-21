@@ -1,66 +1,94 @@
 #include <iostream>
-#include <list>
 using namespace std;
 
-void printQueue(const list<int>& q) 
+struct Node 
 {
-    for (int patient : q) 
+    int token;
+    Node* next;
+};
+
+Node* head = NULL;
+
+void insertFront(int token) 
+{
+    Node* newNode = new Node;
+    newNode->token = token;
+    newNode->next = head;
+    head = newNode;
+}
+
+void insertEnd(int token) 
+{
+    Node* newNode = new Node;
+    newNode->token = token;
+    newNode->next = NULL;
+
+    if (head == NULL) 
     {
-        cout << patient << " ";
+        head = newNode;
+        return;
+    }
+
+    Node* temp = head;
+    while (temp->next != NULL)
+        temp = temp->next;
+
+    temp->next = newNode;
+}
+
+void insertPosition(int token, int pos) 
+{
+    Node* newNode = new Node;
+    newNode->token = token;
+
+    if (pos == 1) 
+    {
+        newNode->next = head;
+        head = newNode;
+        return;
+    }
+
+    Node* temp = head;
+    for (int i = 1; i < pos - 1; i++)
+        temp = temp->next;
+
+    newNode->next = temp->next;
+    temp->next = newNode;
+}
+
+void display() 
+{
+    Node* temp = head;
+    while (temp != NULL) 
+    {
+        cout << temp->token << " ";
+        temp = temp->next;
     }
     cout << endl;
 }
 
 int main() 
 {
-    list<int> queue;
 
-    queue.push_front(101);
-    cout << "After adding 101 (Critical) at front: ";
-    printQueue(queue);
+    insertEnd(101);
+    cout << "After adding routine patient 101: ";
+    display();
 
-    queue.push_back(202);
-    cout << "After adding 202 (Routine) at end: ";
-    printQueue(queue);
+    insertEnd(102);
+    cout << "After adding routine patient 102: ";
+    display();
 
-    queue.push_back(303);
-    cout << "After adding 303 (Routine) at end: ";
-    printQueue(queue);
+    insertFront(201);
+    cout << "After adding critical patient 201: ";
+    display();
 
-    int position = 2;
-    int patient = 404;
+    insertPosition(150, 2);
+    cout << "After inserting priority patient 150 at position 2: ";
+    display();
 
-    if (position <= queue.size()) 
-    {
-        auto it = queue.begin();
-        advance(it, position - 1); 
-        queue.insert(it, patient);
-        cout << "After inserting 404 (Priority) at position " << position << ": ";
-    } 
-    else 
-    {
-        queue.push_back(patient);
-        cout << "Position " << position << " exceeds length, so 404 added at end: ";
-    }
-    printQueue(queue);
-
-    
-    position = 10;
-    patient = 505;
-
-    if (position <= queue.size()) 
-    {
-        auto it = queue.begin();
-        advance(it, position - 1);
-        queue.insert(it, patient);
-        cout << "After inserting 505 (Priority) at position " << position << ": ";
-    } 
-    else 
-    {
-        queue.push_back(patient);
-        cout << "Position " << position << " exceeds length, so 505 added at end: ";
-    }
-    printQueue(queue);
+    insertEnd(103);
+    cout << "After adding routine patient 103: ";
+    display();
 
     return 0;
 }
